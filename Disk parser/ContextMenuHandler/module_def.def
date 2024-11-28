@@ -1,0 +1,4 @@
+LIBRARY DiskAnalyserContextMenuHandler
+EXPORTS 
+DllGetClassObject PRIVATE
+DllCanUnloadNow PRIVATE
