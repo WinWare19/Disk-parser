@@ -198,7 +198,7 @@ HRESULT __stdcall DllGetClassObject(REFCLSID class_id, REFIID interface_id, LPVO
 		return HRESULT_FROM_WIN32(GetLastError());
 	}
 	CLSID ext_clsid = { 0x0 };
-	HRESULT rs = ((HRESULT(__stdcall*)(LPCOLESTR, LPCLSID))lpCLSIDFromString)(L"{424a995d-246c-4ada-bd98-3a1db4868241}", &ext_clsid);
+	HRESULT rs = ((HRESULT(__stdcall*)(LPCOLESTR, LPCLSID))lpCLSIDFromString)(/* YOUR EXTENSION GUID */, &ext_clsid);
 	FreeLibrary(ole32);
 	if (FAILED(rs)) {
 		if (interface_buffer) *interface_buffer = NULL;
