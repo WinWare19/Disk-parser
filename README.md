@@ -1,2 +1,17 @@
 # Disk-parser
-a windows tool that hepls in extracting diffirent pieces of information about all hard disks plugged into your computer and parsing any mouted NTFS volume in your system
+# This is a tool i built that helps extracting different types of information about all hard disks plugged into your computer including geometry information like sector size and the number of cylinders ...etc, it also gets the disk's partition style ( GPT or MBR ) and display all the partitions with their attributes like the starting sector and the size ...etc. 
+
+# You can use this tool also to get all the [mounted NTFS volume] that exist in your system and extract different useful pieces of information like the [BIOS PARAMETER BLOCK] which is located in the [BOOT SECTOR] of the volume, you can obviously parse and visualize any [$MFT] or [INDX] entry.
+
+# You can navigate freely between sectors using a comand in the menu bar of the main window and also the change the read ratio which represents how many sectors are read at one time, it's also multithreaded so you can work on many disks/volumes at the same time by just opening a new window, each window is managed by a separate thread.
+
+# You can directly work on a volume by clicking on its icon in you explorer window and choose the command parse, it will automatically open the volume with Disk parser so you ddon't need to every tume choose the volume you want and you can preserve much time.
+
+# Some difinitions :
+# mouted volume : a mounted volume is a normal volume that a user mode application can access using a drive letter, a special folder called mounted folder or both.
+# mounted folder: a special folder that is solely used to access a volume, it must be empty.
+# NTFS : a file system developped by microsoft, it has many versions, it's main component is the $MFT which is used to track every file and directory in the volume, ntfs devides the volume into small chunks called clusters, you find its size in BIOS PARAMTER BLOCK, each cluster is either used or free, any used cluster can't be used by another file while it's already in use. Files in NTFS are stoted in the form of attributes of diffirent types and are referenced by their MFT entry number + their sequence number.
+# MFT Sequence number: when you create a new file, NTFS doesn't directly create a new MFT entry for it, firstly it check the $BITMAP attribute in the $MFT for free entries, if it finds one it increments the sequence number of that entry and overrides its content, so it will be the new file entry. By incrementing the sequence number the entry will not be valid for the old file because the its sequence number is not as the entry's one after we changed it.
+# MFT: the master file table, the main component of the NTFS file system, it's used to store infromation and track all files and folders in the volume, as i said before every file/folder is a combination of clusters, if the file is so big the MFT stores a reference to its clusters otherwise it stores the file data directly.
+# INDX: an index entry is used to define the parent/child linking between files and directories, so it's only valid for directories. INDX entries are referenced in a special mft attribute called $INDEX_ALLOCATION so the file system can find them easily.
+# BOOT SECTOR: the first sector of any partition is called the boot sector, it contains many relative information such as the BIOS PARAMTER BLOCK that defines the volume layout ( sector size, cluster size, MFT position, mft entry size, indx enrty size ..etc ), this tool access only these pieces of information, it doesn't do anything relatedto the boostrap code that follows the BIOS PARAMETER BLOCK
