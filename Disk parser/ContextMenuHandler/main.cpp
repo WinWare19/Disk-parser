@@ -93,7 +93,9 @@ public:
 		}
 		else is_supported = (!lstrcmpA(command_context->lpVerb, "command"));
 		if (is_supported) {
-			for (UINT i = 0x0; i < target_items.size(); i++) MessageBox(0, target_items[i], 0, 0);
+			for (UINT i = 0x0; i < target_items.size(); i++) {
+				// adding your command handling here you can simply launch disk-parser multi times using the target volumes as command lines
+			}
 			return S_OK;
 		}
 		return E_FAIL;
